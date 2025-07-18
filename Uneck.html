@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)file:///D:/chat/chat.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uneck</title>
+  <link rel="stylesheet" href="./Uneck_files/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <h1>University Connect</h1>
+      <nav>
+        <input type="text" placeholder="Cari forum, user, channel...">
+        <button onclick="openLogin()">Masuk Akun Kampus</button>
+        <button onclick="openPostModal()">Buat Postingan</button>
+      </nav>
+    </header>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <button class="active">Semua</button>
+      <button>Forum</button>
+      <button>Opini</button>
+      <button>Videochat</button>
+      <button>Channel</button>
+      <button>Chat Anonim</button>
+      <button>Dosen</button>
+    </div>
+
+    <!-- Post Grid -->
+    <section class="post-grid">
+      <div class="post-card">
+        <img src="https://via.placeholder.com/400x200" alt="preview">
+        <div class="card-content">
+          <h3>Tips Beropini Akademik</h3>
+          <p>Oleh <strong>Fahriel</strong> • 1 hari lalu</p>
+        </div>
+      </div>
+      <div class="post-card">
+        <img src="https://via.placeholder.com/400x200" alt="preview">
+        <div class="card-content">
+          <h3>Channel: Forum Dosen Gizi</h3>
+          <p>Topik: Nutrisi &amp; Kesehatan</p>
+        </div>
+      </div>
+      <div class="post-card">
+        <img src="https://via.placeholder.com/400x200" alt="preview">
+        <div class="card-content">
+          <h3>Gabung Video Chat Belajar</h3>
+          <p>Status: <strong>3 Mahasiswa Aktif</strong></p>
+        </div>
+      </div>
+      <div class="post-card">
+        <img src="https://via.placeholder.com/400x200" alt="preview">
+        <div class="card-content">
+          <h3>Chat Anonim</h3>
+          <p>Diskusi tanpa identitas • Terbuka</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form Postingan -->
+    <section id="postFormSection" style="display: none;">
+      <h2>Buat Postingan</h2>
+      <form id="postForm">
+        <input type="text" id="username" placeholder="Nama Pengguna" required="">
+        <textarea id="content" placeholder="Tulis pendapatmu di sini..." required=""></textarea>
+        <button type="submit">Kirim</button>
+      </form>
+    </section>
+
+    <!-- Chatbox -->
+    <section class="chatbox">
+      <h2>Obrolan Mahasiswa</h2>
+      <div class="chat-messages" id="chatMessages"></div>
+      <input type="text" id="chatInput" placeholder="Ketik pesan...">
+      <button onclick="sendMessage()">Kirim</button>
+    </section>
+
+    <!-- Video Chat -->
+    <section class="video-chat">
+      <h2>Video Chat Room</h2>
+      <video id="localVideo" autoplay="" muted=""></video>
+      <video id="remoteVideo" autoplay=""></video>
+      <button onclick="startVideoChat()">Mulai Chat</button>
+    </section>
+
+    <!-- Chat Anonim -->
+    <section class="anon-chat">
+      <h2>Chat Anonim</h2>
+      <div class="anon-messages" id="anonMessages"></div>
+      <input type="text" id="anonInput" placeholder="Pesan rahasia...">
+      <button onclick="sendAnon()">Kirim Anonim</button>
+    </section>
+
+    <!-- Channel Forum -->
+    <section class="channel-section">
+      <h2>Forum Channel</h2>
+      <form id="channelForm">
+        <input type="text" placeholder="Nama Channel (e.g. Gizi 2021)">
+        <textarea placeholder="Deskripsi Channel..."></textarea>
+        <button type="submit">Buat Channel</button>
+      </form>
+    </section>
+
+    <!-- Modal Login -->
+    <div id="loginModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span onclick="closeLogin()" class="close">×</span>
+        <h2>Login Akun Kampus</h2>
+        <input type="email" id="loginEmail" placeholder="Email kampus (@ac.id / @edu)" required="">
+        <input type="password" placeholder="Kata Sandi">
+        <button onclick="validateLogin()">Login</button>
+        <p id="loginError" style="color: red; display: none;">Email harus menggunakan domain kampus</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Script -->
+  <script>
+    function openPostModal() {
+      document.getElementById("postFormSection").style.display = "block";
+    }
+
+    function openLogin() {
+      document.getElementById("loginModal").style.display = "block";
+    }
+
+    function closeLogin() {
+      document.getElementById("loginModal").style.display = "none";
+    }
+
+    function validateLogin() {
+      const email = document.getElementById("loginEmail").value;
+      const error = document.getElementById("loginError");
+
+      const regex = /^[a-zA-Z0-9._%+-]+@(student\.)?(ac\.id|edu)$/;
+
+      if (regex.test(email)) {
+        alert("Login berhasil sebagai akun kampus!");
+        closeLogin();
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const msgBox = document.getElementById("chatMessages");
+      if (input.value.trim()) {
+        msgBox.innerHTML += `<p><strong>Kamu:</strong> ${input.value}</p>`;
+        input.value = "";
+      }
+    }
+
+    function sendAnon() {
+      const input = document.getElementById("anonInput");
+      const msgBox = document.getElementById("anonMessages");
+      if (input.value.trim()) {
+        msgBox.innerHTML += `<p>🕵️‍♂️ ${input.value}</p>`;
+        input.value = "";
+      }
+    }
+
+    function startVideoChat() {
+      alert("🔴 Simulasi videochat dimulai...");
+    }
+  </script>
+
+
+</body></html>
